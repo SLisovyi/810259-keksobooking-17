@@ -2,19 +2,20 @@
 
 // MOKS data
 
-var avtarImgNumber = ['01', '02', '03', '04', '05', '06', '07', '08'];
+var avatarImgNumber = ['01', '02', '03', '04', '05', '06', '07', '08'];
 var offerType = ['palace', 'flat', 'house', 'bungalo'];
 
+// function случайное число
 function randomInteger(min, max) {
   var rand = min + Math.random() * (max + 1 - min);
   rand = Math.floor(rand);
   return rand;
 }
 
-var ad = {
+var userAd = {
   author: {
-    // строка, адрес изображения вида 'img/avatars/user{{xx}}.png', где {{xx}} это число от 1 до 8 с ведущим нулём. Например, 01, 02 и т. д. Адреса изображений не повторяются
-    avatar: 'img/avatars/user' + avtarImgNumber[3] + '.png'
+    // строка, адрес изображения вида. Адреса изображений не повторяются
+    avatar: 'img/avatars/user' + avatarImgNumber[randomInteger(0, 8)] + '.png'
   },
   offer: {
     // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
@@ -30,27 +31,25 @@ var ad = {
   }
 };
 
+  // убираем faded class for Map
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
-var mapPins = document.querySelector('.map__pins');
+// клонирование Pin элемента на карте <template>
+var pinButtons = document.querySelectorAll('.map__pins');
 
-var makeElement = function (tagName, className, text) {
-  var element = document.createElement(tagName);
-  element.classList.add(className);
-  if (text) {
-    element.textContent = text;
-  }
-  return element;
-};
+var pinTemplate = document.querySelector('#pin').content.querySelector('button');
 
-// Creating new pin-element
-var pinButton = makeElement('button', 'map__pin');
-mapPins.appendChild(pinButton);
+var pinImg = document.querySelector('#pin').content.querySelector('img');
 
-var pinImage = document.createElement('img');
-pinImage.src = ad.author.avatar;
-pinImage.alt = 'Профессиональная селфи-палка';
-pinImage.style.left = '222px';
-pinImage.style.top = '500px';
-pinButton.appendChild(pinImage);
+for (var i = 0; i < 8; i++) {
+  var pinElement = pinTemplate.cloneNode(true);
+  pinElement.children[0].textContent = i;
+  pinButtons[0].appendChild(pinElement);
+
+  pinImg.src = userAd.author.avatar;
+  pinElement.style.left = userAd.location.x + 'px';
+  pinElement.style.top = userAd.location.y + 'px';
+  // pinElement[i].style.left = userAd.location.x + 'px';
+  // pinElement[i].top = userAd.location.y + 'px';
+}
