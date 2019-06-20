@@ -33,33 +33,12 @@ var pinButtonsList = document.querySelectorAll('.map__pins');
 // Pin элемент <template>
 var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-// массив users avatar imgs
+// массив users avatar
 var avatarPinImg = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
 
 var offerType = ['palace', 'flat', 'house', 'bungalo'];
 
-// users data generations from avatarPinImg.length
-var getUsersData = function () {
-  var usersArray = [];
-  for (var i = 0; i < avatarPinImg.length; i++) {
-    usersArray [i] = {
-      'author': {
-        'avatar': avatarPinImg[i]
-      },
-      'offer': {
-        'type': offerType[i]
-      },
-      'location': {
-        'x': randomInteger(0, 704),
-        'y': randomInteger(130, 630)
-      }
-    };
-  }
-  return usersArray;
-};
-
 // Mocks data for users ads
-/*
 var userAds = [
   {
     author: {
@@ -166,17 +145,16 @@ var userAds = [
     }
   }
 ];
- */
 
 // генерируем Pins из массива данных userAds
-for (var i = 0; i < getUsersData().length; i++) {
+for (var i = 0; i < userAds.length; i++) {
   var pinElement = similarPinTemplate.cloneNode(true);
 
-  pinElement.style.left = getUsersData()[i].location.x + 'px';
-  pinElement.style.top = getUsersData()[i].location.y + 'px';
+  pinElement.style.left = userAds[i].location.x + 'px';
+  pinElement.style.top = userAds[i].location.y + 'px';
 
-  pinElement.querySelector('img').src = getUsersData()[i].author.avatar;
-  pinElement.querySelector('img').alt = getUsersData()[i].author.title;
+  pinElement.querySelector('img').src = userAds[i].author.avatar;
+  pinElement.querySelector('img').alt = userAds[i].author.title;
 
   pinButtonsList[0].appendChild(pinElement);
 }
