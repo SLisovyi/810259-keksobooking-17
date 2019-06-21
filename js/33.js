@@ -34,28 +34,17 @@ var pinButtonsList = document.querySelectorAll('.map__pins');
 var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 // массив users avatar imgs
-// var avatarPinImg = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
-
-// формирование массива аватарок пользователей
-var usersTotal = 8;
-
-var getUsersAvatar = function () {
-  var usersImgArray = [];
-  for (var i = 0; i < usersTotal; i++) {
-    usersImgArray [i] = 'img/avatars/user0' + [i + 1] + '.png';
-  }
-  return usersImgArray;
-};
+var avatarPinImg = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
 
 var offerType = ['palace', 'flat', 'house', 'bungalo'];
 
 // users data generations from avatarPinImg.length
 var getUsersData = function () {
   var usersArray = [];
-  for (var i = 0; i < getUsersAvatar().length; i++) {
+  for (var i = 0; i < avatarPinImg.length; i++) {
     usersArray [i] = {
       'author': {
-        'avatar': getUsersAvatar()[i]
+        'avatar': avatarPinImg[i]
       },
       'offer': {
         'type': offerType[i]
@@ -68,6 +57,116 @@ var getUsersData = function () {
   }
   return usersArray;
 };
+
+// Mocks data for users ads
+/*
+var userAds = [
+  {
+    author: {
+      avatar: avatarPinImg[0],
+      title: 'Image title'
+    },
+    offer: {
+      type: offerType[0]
+    },
+    location: {
+      x: randomInteger(0, 704),
+      y: randomInteger(130, 630)
+    }
+  },
+  {
+    author: {
+      avatar: avatarPinImg[1],
+      title: 'Image title 1'
+    },
+    offer: {
+      type: offerType[1]
+    },
+    location: {
+      x: randomInteger(0, 704),
+      y: randomInteger(130, 630)
+    }
+  },
+  {
+    author: {
+      avatar: avatarPinImg[2],
+      title: 'Image title 2'
+    },
+    offer: {
+      type: offerType[2]
+    },
+    location: {
+      x: randomInteger(0, 704),
+      y: randomInteger(130, 630)
+    }
+  },
+  {
+    author: {
+      avatar: avatarPinImg[3],
+      title: 'Image title 2'
+    },
+    offer: {
+      type: offerType[2]
+    },
+    location: {
+      x: randomInteger(0, 704),
+      y: randomInteger(130, 630)
+    }
+  },
+  {
+    author: {
+      avatar: avatarPinImg[4],
+      title: 'Image title 2'
+    },
+    offer: {
+      type: offerType[2]
+    },
+    location: {
+      x: randomInteger(0, 704),
+      y: randomInteger(130, 630)
+    }
+  },
+  {
+    author: {
+      avatar: avatarPinImg[5],
+      title: 'Image title 2'
+    },
+    offer: {
+      type: offerType[2]
+    },
+    location: {
+      x: randomInteger(0, 704),
+      y: randomInteger(130, 630)
+    }
+  },
+  {
+    author: {
+      avatar: avatarPinImg[6],
+      title: 'Image title 2'
+    },
+    offer: {
+      type: offerType[2]
+    },
+    location: {
+      x: randomInteger(0, 704),
+      y: randomInteger(130, 630)
+    }
+  },
+  {
+    author: {
+      avatar: avatarPinImg[7],
+      title: 'Image title 2'
+    },
+    offer: {
+      type: offerType[2]
+    },
+    location: {
+      x: randomInteger(0, 704),
+      y: randomInteger(130, 630)
+    }
+  }
+];
+ */
 
 // генерируем Pins из массива данных userAds
 for (var i = 0; i < getUsersData().length; i++) {
