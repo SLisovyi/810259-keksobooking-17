@@ -7,34 +7,15 @@ function randomInteger(min, max) {
   return rand;
 }
 
-/* var userAd = {
-  author: {
-    // строка, адрес изображения вида. Адреса изображений не повторяются
-    avatar: 'img/avatars/user' + avatarImgNumber[1] + '.png'
-  },
-  offer: {
-    // строка с одним из четырёх фиксированных значений: palace, flat, house или bungalo
-    type: offerType[0]
-  },
-  location: {
-    // случайное число, координата x метки на карте. Значение ограничено ''размерами блока'', в котором перетаскивается метка.
-    x: randomInteger(0, 704),
-    // случайное число, координата y метки на карте от 130 до 630.
-    y: randomInteger(130, 630)
-  }
-};
- */
 // убираем faded class for Map
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
 // блок с пинами пользователей
 var pinButtonsList = document.querySelectorAll('.map__pins');
+
 // Pin элемент <template>
 var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
-// массив users avatar imgs
-// var avatarPinImg = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
 
 // формирование массива аватарок пользователей
 var usersTotal = 8;
