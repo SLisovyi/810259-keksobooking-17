@@ -110,3 +110,12 @@ mainPin.addEventListener('click', function () {
 
   removeInputDisabled(true);
 });
+
+// заполнение поля адрес при mouseup на mainPin
+var mapPinX = 570;
+var mapPinY = 375;
+var adsressInput = document.querySelector('#address');
+
+mainPin.addEventListener('mouseup', function () {
+  adsressInput.value = mapPinX + ', ' + mapPinY;
+});
