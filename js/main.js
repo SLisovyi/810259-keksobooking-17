@@ -107,15 +107,19 @@ mainPin.addEventListener('click', function () {
   fieldForm.classList.remove('ad-form--disabled');
 
   createPins();
-
   removeInputDisabled(true);
 });
 
-// заполнение поля адрес при mouseup на mainPin
-var mapPinX = 570;
-var mapPinY = 375;
-var adsressInput = document.querySelector('#address');
+// находим координаты mainPin на карте
+var formInputAdsress = document.querySelector('#address');
+
+var PIN_ARROW_HEIGHT = 22;
+var MAIN_PIN_WIDTH = 40;
+var MAIN_PIN_HEIGHT = 44;
+
+var mainPinX = mainPin.offsetLeft - (MAIN_PIN_WIDTH / 2);
+var mainPinY = mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_ARROW_HEIGHT;
 
 mainPin.addEventListener('mouseup', function () {
-  adsressInput.value = mapPinX + ', ' + mapPinY;
+  formInputAdsress.value = mainPinX + ', ' + mainPinY;
 });
