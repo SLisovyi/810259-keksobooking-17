@@ -1,12 +1,15 @@
 'use strict';
 
-// function случайное число
-var randomInteger = function (min, max) {
-  var rand = min + Math.random() * (max + 1 - min);
-  rand = Math.floor(rand);
-  return rand;
-};
+var MAIN_PIN = document.querySelector('.map__pin--main');
+var MAP = document.querySelector('.map');
 
+var mapWidth = MAP.offsetWidth;
+var mapHeight = MAP.offsetHeight;
+
+var FIELD_FORM = document.querySelector('.ad-form');
+var inputs = FIELD_FORM.querySelectorAll('input');
+var textarea = FIELD_FORM.querySelectorAll('textarea');
+var select = document.querySelectorAll('select');
 
 // блок с пинами пользователей
 var pinButtonsList = document.querySelectorAll('.map__pins');
@@ -17,15 +20,22 @@ var similarPinTemplate = document.querySelector('#pin').content.querySelector('.
 // формирование массива аватарок пользователей
 var usersTotal = 8;
 
+var offerType = ['palace', 'flat', 'house', 'bungalo'];
+
+// function случайное число
+var randomInteger = function (min, max) {
+  var rand = min + Math.random() * (max + 1 - min);
+  rand = Math.floor(rand);
+  return rand;
+};
+
 var getUsersAvatar = function () {
   var usersImgArray = [];
   for (var i = 0; i < usersTotal; i++) {
-    usersImgArray [i] = 'img/avatars/user0' + [i + 1] + '.png';
+    usersImgArray[i] = 'img/avatars/user0' + [i + 1] + '.png';
   }
   return usersImgArray;
 };
-
-var offerType = ['palace', 'flat', 'house', 'bungalo'];
 
 // users data generations from avatarPinImg.length
 var getUsersData = function () {
@@ -39,8 +49,8 @@ var getUsersData = function () {
         'type': offerType[i]
       },
       'location': {
-        'x': randomInteger(0, 704),
-        'y': randomInteger(130, 630)
+        'x': randomInteger(0, mapWidth),
+        'y': randomInteger(0, mapHeight - 70)
       }
     };
   }
@@ -48,6 +58,7 @@ var getUsersData = function () {
 };
 
 // генерируем Pins из массива данных userAds
+var activated = false;
 var createPins = function () {
 
   for (var i = 0; i < getUsersData().length; i++) {
@@ -61,16 +72,8 @@ var createPins = function () {
 
     pinButtonsList[0].appendChild(pinElement);
   }
+  activated = true;
 };
-
-// активация карты при нажатии на  метку
-var mainPin = document.querySelector('.map__pin--main');
-var map = document.querySelector('.map');
-var fieldForm = document.querySelector('.ad-form');
-
-var inputs = fieldForm.querySelectorAll('input');
-var textarea = fieldForm.querySelectorAll('textarea');
-var select = document.querySelectorAll('select');
 
 // добавляем тег disablet на формы и поля
 var setInputDisabled = function (onOff) {
@@ -101,25 +104,29 @@ var removeInputDisabled = function (onOff) {
   });
 };
 
-// действия при клике на mapPin
-mainPin.addEventListener('click', function () {
-  map.classList.remove('map--faded');
-  fieldForm.classList.remove('ad-form--disabled');
+// действия при клике на mapPin, активация карты при нажатии на  метку
+MAIN_PIN.addEventListener('click', function () {
+  MAP.classList.remove('map--faded');
+  FIELD_FORM.classList.remove('ad-form--disabled');
 
-  createPins();
+  // проверка были ли пины уже созданы
+  if (!activated) {
+    createPins();
+  }
+
   removeInputDisabled(true);
 });
 
-// находим координаты mainPin на карте
+// находим координаты MAIN_PIN на карте
 var formInputAdsress = document.querySelector('#address');
 
 var PIN_ARROW_HEIGHT = 22;
 var MAIN_PIN_WIDTH = 40;
 var MAIN_PIN_HEIGHT = 44;
 
-var mainPinX = mainPin.offsetLeft - (MAIN_PIN_WIDTH / 2);
-var mainPinY = mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_ARROW_HEIGHT;
+var mainPinX = MAIN_PIN.offsetLeft - (MAIN_PIN_WIDTH / 2);
+var mainPinY = MAIN_PIN.offsetTop + MAIN_PIN_HEIGHT + PIN_ARROW_HEIGHT;
 
-mainPin.addEventListener('mouseup', function () {
+MAIN_PIN.addEventListener('mouseup', function () {
   formInputAdsress.value = mainPinX + ', ' + mainPinY;
 });
