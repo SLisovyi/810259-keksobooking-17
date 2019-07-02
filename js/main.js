@@ -104,6 +104,8 @@ var removeInputDisabled = function (onOff) {
   });
 };
 
+var formInputAdsress = document.querySelector('#address');
+
 // действия при клике на mapPin, активация карты при нажатии на  метку
 MAIN_PIN.addEventListener('click', function () {
   MAP.classList.remove('map--faded');
@@ -115,11 +117,10 @@ MAIN_PIN.addEventListener('click', function () {
   }
 
   removeInputDisabled(true);
+  formInputAdsress.setAttribute('disabled', true);
 });
 
 // находим координаты MAIN_PIN на карте
-var formInputAdsress = document.querySelector('#address');
-
 var PIN_ARROW_HEIGHT = 22;
 var MAIN_PIN_WIDTH = 40;
 var MAIN_PIN_HEIGHT = 44;
@@ -129,4 +130,42 @@ var mainPinY = MAIN_PIN.offsetTop + MAIN_PIN_HEIGHT + PIN_ARROW_HEIGHT;
 
 MAIN_PIN.addEventListener('mouseup', function () {
   formInputAdsress.value = mainPinX + ', ' + mainPinY;
+});
+
+// --------------------------поля ввода------------------------------
+// изменение поля цена в зависимости от выбранного типа жилья
+var adForm = document.querySelector(".ad-form");
+var selectTypeOfHouse = adForm.querySelector("#type");
+var inputPrice = adForm.querySelector("#price");
+
+selectTypeOfHouse.addEventListener("change", function() {
+    if (selectTypeOfHouse.value === "bungalo") {
+      inputPrice.placeholder = 0;
+    }
+    else if (selectTypeOfHouse.value === "flat") {
+      inputPrice.placeholder = 1000;
+    }
+    else if (selectTypeOfHouse.value === "house") {
+      inputPrice.placeholder = 5000;
+    }
+    else if(selectTypeOfHouse.value === "palace") {
+      inputPrice.placeholder = 10000;
+    } 
+});
+
+// изменение поля заселения и выселения
+var inputTimeIn = adForm.querySelector("#timein");
+var inputTimeOut = adForm.querySelector("#timeout");
+
+inputTimeIn.addEventListener("change", function() {
+  if (inputTimeIn.value !== inputTimeOut.value) {
+    inputTimeOut.value = inputTimeIn.value;
+  }
+});
+
+inputTimeOut.addEventListener("change", function() {
+  
+  if (inputTimeIn.value !== inputTimeOut.value) {
+    inputTimeIn.value = inputTimeOut.value;
+  }
 });
