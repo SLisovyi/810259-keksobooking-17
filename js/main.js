@@ -112,7 +112,7 @@ MAIN_PIN.addEventListener('mousedown', function (evt) {
   var PIN_ARROW_HEIGHT = 22;
   var MAIN_PIN_WIDTH = 40;
   var MAIN_PIN_HEIGHT = 44;
- 
+
   evt.preventDefault();
 
   MAP.classList.remove('map--faded');
@@ -145,18 +145,22 @@ MAIN_PIN.addEventListener('mousedown', function (evt) {
     };
 
     // ограничение перемещения пина по ширине карты
-    if ((MAIN_PIN.offsetLeft - shift.x) > (MAP.offsetWidth - 50)){
+    if ((MAIN_PIN.offsetLeft - shift.x) > (MAP.offsetWidth - 50)) {
       MAIN_PIN.style.left = (MAP.offsetWidth - 50) + 'px';
-    } else if ((MAIN_PIN.offsetLeft - shift.x) < 0){
+    } else if ((MAIN_PIN.offsetLeft - shift.x) < 0) {
       MAIN_PIN.style.left = 1 + 'px';
-    } else (MAIN_PIN.style.left = (MAIN_PIN.offsetLeft - shift.x) + 'px')
+    } else {
+      MAIN_PIN.style.left = (MAIN_PIN.offsetLeft - shift.x) + 'px';
+    }
 
     // ограничение перемещения пина по высоте карты
-    if ((MAIN_PIN.offsetTop - shift.y) > (MAP.offsetHeight - 140)){
-      MAIN_PIN.style.top = MAP.offsetHeight - 140 + 'px'; //document.querySelector('.map').offsetHeight
-    } else if ((MAIN_PIN.offsetTop - shift.y) < 60){
+    if ((MAIN_PIN.offsetTop - shift.y) > (MAP.offsetHeight - 140)) {
+      MAIN_PIN.style.top = MAP.offsetHeight - 140 + 'px';
+    } else if ((MAIN_PIN.offsetTop - shift.y) < 60) {
       MAIN_PIN.style.top = 60 + 'px';
-    } else (MAIN_PIN.style.top = (MAIN_PIN.offsetTop - shift.y) + 'px')
+    } else {
+      MAIN_PIN.style.top = (MAIN_PIN.offsetTop - shift.y) + 'px';
+    }
 
     // находим положение указателя стрелки пина
     var mainPinX = MAIN_PIN.offsetLeft - (MAIN_PIN_WIDTH / 2);
