@@ -75,7 +75,7 @@ var createPins = function () {
   activated = true;
 };
 
-// добавляем тег disablet на формы и поля
+// добавляем тег disabled на формы и поля
 var setInputDisabled = function (onOff) {
 
   inputs.forEach(function (element) {
@@ -90,7 +90,7 @@ var setInputDisabled = function (onOff) {
 };
 setInputDisabled();
 
-// убираем тег disablet с форм и полей
+// убираем тег disabled с форм и полей
 var removeInputDisabled = function (onOff) {
 
   inputs.forEach(function (element) {
@@ -104,10 +104,17 @@ var removeInputDisabled = function (onOff) {
   });
 };
 
-var formInputAdsress = document.querySelector('#address');
+// ----------------------------------------------------------------
+MAIN_PIN.addEventListener('mousedown', function (evt) {
+  var formInputAdsress = document.querySelector('#address');
 
-// действия при клике на mapPin, активация карты при нажатии на  метку
-MAIN_PIN.addEventListener('click', function () {
+  // находим координаты MAIN_PIN на карте и его элементы
+  var PIN_ARROW_HEIGHT = 22;
+  var MAIN_PIN_WIDTH = 40;
+  var MAIN_PIN_HEIGHT = 44;
+
+  evt.preventDefault();
+
   MAP.classList.remove('map--faded');
   FIELD_FORM.classList.remove('ad-form--disabled');
 
@@ -118,21 +125,66 @@ MAIN_PIN.addEventListener('click', function () {
 
   removeInputDisabled(true);
   formInputAdsress.setAttribute('disabled', true);
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    // ограничение перемещения пина по ширине карты
+    if ((MAIN_PIN.offsetLeft - shift.x) > (MAP.offsetWidth - 50)) {
+      MAIN_PIN.style.left = (MAP.offsetWidth - 50) + 'px';
+    } else if ((MAIN_PIN.offsetLeft - shift.x) < 0) {
+      MAIN_PIN.style.left = 1 + 'px';
+    } else {
+      MAIN_PIN.style.left = (MAIN_PIN.offsetLeft - shift.x) + 'px';
+    }
+
+    // ограничение перемещения пина по высоте карты
+    if ((MAIN_PIN.offsetTop - shift.y) > (MAP.offsetHeight - 140)) {
+      MAIN_PIN.style.top = MAP.offsetHeight - 140 + 'px';
+    } else if ((MAIN_PIN.offsetTop - shift.y) < 60) {
+      MAIN_PIN.style.top = 60 + 'px';
+    } else {
+      MAIN_PIN.style.top = (MAIN_PIN.offsetTop - shift.y) + 'px';
+    }
+
+    // находим положение указателя стрелки пина
+    var mainPinX = MAIN_PIN.offsetLeft - (MAIN_PIN_WIDTH / 2);
+    var mainPinY = MAIN_PIN.offsetTop + MAIN_PIN_HEIGHT + PIN_ARROW_HEIGHT;
+
+    // изменение поля адрес при перемещении пина
+    formInputAdsress.value = mainPinX + ', ' + mainPinY;
+  };
+
+  // отмена слушателей
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
 });
-
-// находим координаты MAIN_PIN на карте
-var PIN_ARROW_HEIGHT = 22;
-var MAIN_PIN_WIDTH = 40;
-var MAIN_PIN_HEIGHT = 44;
-
-var mainPinX = MAIN_PIN.offsetLeft - (MAIN_PIN_WIDTH / 2);
-var mainPinY = MAIN_PIN.offsetTop + MAIN_PIN_HEIGHT + PIN_ARROW_HEIGHT;
-
-MAIN_PIN.addEventListener('mouseup', function () {
-  formInputAdsress.value = mainPinX + ', ' + mainPinY;
-});
+// ----------------------------------------------------------------
 
 // --------------------------поля ввода------------------------------
+
 // изменение поля цена в зависимости от выбранного типа жилья
 var adForm = document.querySelector('.ad-form');
 var selectTypeOfHouse = adForm.querySelector('#type');
