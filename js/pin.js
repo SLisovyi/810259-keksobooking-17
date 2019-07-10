@@ -21,6 +21,7 @@
     fieldForm.classList.remove('ad-form--disabled');
 
     // показываем обьявления при клике на основной пин
+
     window.loadPins();
 
     window.removeInputDisabled(true);

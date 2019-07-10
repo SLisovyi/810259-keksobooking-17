@@ -22,7 +22,7 @@
     window.load(function (pins) {
       var fragment = document.createDocumentFragment();
 
-      for (var i = 0; i < pins.length; i++) {
+      for (var i = 0; i < 2; i++) {
         fragment.appendChild(renderPin(pins[i]));
       }
       pinButtonsList[0].appendChild(fragment);
