@@ -22,7 +22,7 @@
 
     // показываем обьявления при клике на основной пин
 
-    window.loadPins();
+    window.showPins(window.pins);
 
     window.removeInputDisabled(true);
 

@@ -39,4 +39,10 @@
     body.appendChild(errorElement);
   };
 
+  // загрузка массива обьявлений и внесение в глобальную переменную -window.pins-
+  window.load(function (data) {
+    var allPins = data;
+    window.pins = allPins;
+  });
+
 })();

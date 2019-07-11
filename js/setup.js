@@ -5,7 +5,7 @@
   var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinButtonsList = document.querySelectorAll('.map__pins');
 
-  var renderPin = function (pin) {
+  window.renderPin = function (pin) {
     var pinElement = similarPinTemplate.cloneNode(true);
 
     pinElement.style.left = pin.location.x + 'px';
@@ -17,15 +17,23 @@
     return pinElement;
   };
 
-  // загрузка массива обьявлений с сервера
-  window.loadPins = function () {
-    window.load(function (pins) {
-      var fragment = document.createDocumentFragment();
+  // функция показа пинов на карте
 
-      for (var i = 0; i < 2; i++) {
-        fragment.appendChild(renderPin(pins[i]));
+  window.showPins = function (element) {
+    var fragment = document.createDocumentFragment();
+    var elementCount = 5;
+
+    if (element.length < elementCount) {
+      for (var i = 0; i < element.length; i++) {
+        fragment.appendChild(window.renderPin(element[i]));
       }
-      pinButtonsList[0].appendChild(fragment);
-    });
+    } else {
+      for (var j = 0; j < elementCount; j++) {
+        fragment.appendChild(window.renderPin(element[j]));
+      }
+    }
+
+    pinButtonsList[0].appendChild(fragment);
   };
+
 })();
