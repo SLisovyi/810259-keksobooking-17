@@ -10,6 +10,7 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
         onSuccess(xhr.response);
+
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
@@ -37,4 +38,11 @@
     var errorElement = errorTemplate.cloneNode(true);
     body.appendChild(errorElement);
   };
+
+  // загрузка массива обьявлений и внесение в глобальную переменную -window.pins-
+  window.load(function (data) {
+    var allPins = data;
+    window.pins = allPins;
+  });
+
 })();

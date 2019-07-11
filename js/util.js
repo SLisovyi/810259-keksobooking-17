@@ -8,4 +8,9 @@
     rand = Math.floor(rand);
     return rand;
   };
+
+  window.removeDomElement = function (parent, childRemoving) {
+    parent.remove(childRemoving);
+  };
+
 })();
