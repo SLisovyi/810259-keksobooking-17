@@ -14,9 +14,16 @@
     }
   }
 
+  // any type
+  var filterAny = function () {
+    var anyPins = window.pins.slice();
+    window.showPins(anyPins);
+  };
+
   // выводим пины в зависимости от типа жилья
   filterHouseType.addEventListener('change', function () {
 
+    // убираем предыдущие картинки
     clearPins();
 
     var filteredPins = window.pins.filter(function (it) {
@@ -25,5 +32,9 @@
 
     window.showPins(filteredPins);
     // console.log(filteredPins);
+
+    if (filterHouseType.value === 'any') {
+      filterAny();
+    }
   });
 })();
