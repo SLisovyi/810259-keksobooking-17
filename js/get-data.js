@@ -5,7 +5,14 @@
   var getData = function () {
     // ---------------------------
     var onSuccess = function (data) {
+
       window.pins = data;
+      for (var i = 0; i < window.pins.length; i++) {
+        window.pins[i].id = i;
+      }
+
+      // console.log(window.pins);
+      // console.log(data[4].id);
 
       // проверка были ли пины уже созданы
       if (window.showPinsCheck) {
