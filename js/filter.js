@@ -23,13 +23,15 @@
   // выводим пины в зависимости от типа жилья
   filterHouseType.addEventListener('change', function () {
 
-    // убираем предыдущие картинки
+    // убираем предыдущие pins
     clearPins();
 
-    var filteredPins = window.pins.filter(function (it) {
+    var pins = window.pins;
+
+    var filteredPins = pins.filter(function (it) {
       return it.offer.type === filterHouseType.value;
     });
-
+    // console.log(filteredPins);
     window.showPins(filteredPins);
     // console.log(filteredPins);
 

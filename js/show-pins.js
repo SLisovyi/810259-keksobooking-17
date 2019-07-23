@@ -22,13 +22,13 @@
 
   var setPinListener = function (pins) {
     pins.forEach(function (pin, index) {
+
       pin.addEventListener('click', function (evt) {
         evt.preventDefault();
 
         window.clearImgs();
-        // console.log(evt.target);
-        // console.log(pin);
         window.showInfo(index);
+        // console.log(index);
       });
     });
   };
